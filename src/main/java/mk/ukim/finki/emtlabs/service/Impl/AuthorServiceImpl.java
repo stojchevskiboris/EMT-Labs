@@ -6,11 +6,13 @@ import mk.ukim.finki.emtlabs.model.Country;
 import mk.ukim.finki.emtlabs.repository.AuthorRepository;
 import mk.ukim.finki.emtlabs.repository.CountryRepository;
 import mk.ukim.finki.emtlabs.service.AuthorService;
+import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class AuthorServiceImpl implements AuthorService {
     private final AuthorRepository authorRepository;
     private final CountryRepository countryRepository;

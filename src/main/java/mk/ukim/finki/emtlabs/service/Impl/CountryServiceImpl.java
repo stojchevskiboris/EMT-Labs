@@ -3,11 +3,13 @@ package mk.ukim.finki.emtlabs.service.Impl;
 import mk.ukim.finki.emtlabs.model.Country;
 import mk.ukim.finki.emtlabs.repository.CountryRepository;
 import mk.ukim.finki.emtlabs.service.CountryService;
+import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class CountryServiceImpl implements CountryService {
     private final CountryRepository countryRepository;
 
