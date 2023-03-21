@@ -1,0 +1,45 @@
+<th:block xmlns:th="http://www.thymeleaf.org">
+    <section class="jumbotron text-center">
+        <div class="container">
+            <h1 class="jumbotron-heading">E-Commerce Books</h1>
+        </div>
+    </section>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-5">
+                <form action="/countries/add" method="POST">
+                    <input id="id" type="hidden" name="id" th:value="(${country} != null ? ${country.getId()} : '')">
+                    <div class="form-group">
+                        <label for="name">Country name</label>
+                        <input type="text"
+                               class="form-control"
+                               id="name"
+                               name="name"
+                               th:value="(${country} != null ? ${country.getName()} : '')"
+                               required
+                               placeholder="Enter country name">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="continent">Country continent</label>
+                        <input type="text"
+                               class="form-control"
+                               id="continent"
+                               name="continent"
+                               th:value="(${country} != null ? ${country.getContinent()} : '')"
+                               required
+                               placeholder="Enter country continent">
+                    </div>
+
+
+
+                    <button id="submit" type="submit" class="btn btn-primary">Submit</button>
+                    <a type="button" class="btn btn-primary" href="/countries">Back</a>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+</th:block>

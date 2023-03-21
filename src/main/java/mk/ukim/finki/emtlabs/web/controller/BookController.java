@@ -60,7 +60,7 @@ public class BookController {
 
     @GetMapping("/add-form")
 //    @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public String addProductPage(Model model) {
+    public String addBookPage(Model model) {
         List<Author> authors = this.authorService.findAll();
         model.addAttribute("authors", authors);
         model.addAttribute("bodyContent", "add-book");
@@ -68,7 +68,7 @@ public class BookController {
     }
 
     @PostMapping("/add")
-    public String saveProduct(
+    public String saveBook(
             @RequestParam(required = false) Long id,
             @RequestParam String name,
             @RequestParam String category,
