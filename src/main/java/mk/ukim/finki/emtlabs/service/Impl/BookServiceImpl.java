@@ -2,10 +2,12 @@ package mk.ukim.finki.emtlabs.service.Impl;
 
 import mk.ukim.finki.emtlabs.model.Author;
 import mk.ukim.finki.emtlabs.model.Book;
+import mk.ukim.finki.emtlabs.model.dto.BookDto;
 import mk.ukim.finki.emtlabs.model.enums.Category;
 import mk.ukim.finki.emtlabs.repository.AuthorRepository;
 import mk.ukim.finki.emtlabs.repository.BookRepository;
 import mk.ukim.finki.emtlabs.service.BookService;
+import org.springframework.expression.ExpressionException;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -61,6 +63,28 @@ public class BookServiceImpl implements BookService {
         book.setAvailableCopies(availableCopies);
         return Optional.of(this.bookRepository.save(book));
     }
+
+    @Override
+    public Optional<Book> saveDto(BookDto bookDto) throws Exception {
+        Author author = this.authorRepository.findById(bookDto.getAuthorId()).orElseThrow(Exception::new);
+        Book book = new Book(bookDto.getName(), bookDto.getCategory(), author, bookDto.getAvailableCopies());
+        return Optional.of(this.bookRepository.save(book));
+    }
+
+    @Override
+    public Optional<Book> editDto(Long id, BookDto bookDto) throws Exception {
+        Book book = this.bookRepository.findById(id).orElseThrow(Exception::new);
+        Author author = this.authorRepository.findById(bookDto.getAuthorId()).orElseThrow(Exception::new);
+
+        book.setName(bookDto.getName());
+        book.setCategory(bookDto.getCategory());
+        book.setAuthor(author);
+        book.setAvailableCopies(bookDto.getAvailableCopies());
+
+        return Optional.of(this.bookRepository.save(book));
+    }
+
+
 
     @Override
     public void deleteById(Long id) {
