@@ -12,8 +12,9 @@ public interface BookService {
     List<Book> findAll();
     Optional<Book> findById(Long id);
     Optional<Book> findByName(String name);
-    Book save(String name, Category category, Long authorId, Integer availableCopies) throws Exception;
-    Optional<Book> edit(Long id, String name, Category category, Long authorId, Integer availableCopies) throws Exception;
+    Optional<Book> mark(Long id) throws Exception;
+    Book save(String name, Category category, Long author, Integer availableCopies) throws Exception;
+    Optional<Book> edit(Long id, String name, Category category, Long author, Integer availableCopies) throws Exception;
     Optional<Book> saveDto(BookDto bookDto) throws Exception;
     Optional<Book> editDto(Long id, BookDto bookDto) throws Exception;
     void deleteById(Long id);

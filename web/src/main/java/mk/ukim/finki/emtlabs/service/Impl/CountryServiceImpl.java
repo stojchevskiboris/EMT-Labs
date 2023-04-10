@@ -1,6 +1,7 @@
 package mk.ukim.finki.emtlabs.service.Impl;
 
 import mk.ukim.finki.emtlabs.model.Country;
+import mk.ukim.finki.emtlabs.model.dto.CountryDto;
 import mk.ukim.finki.emtlabs.repository.CountryRepository;
 import mk.ukim.finki.emtlabs.service.CountryService;
 import org.springframework.stereotype.Service;
@@ -52,6 +53,22 @@ public class CountryServiceImpl implements CountryService {
 
         this.countryRepository.save(country);
         return Optional.of(country);
+    }
+
+    @Override
+    public Optional<Country> saveDto(CountryDto countryDto) throws Exception {
+        Country country = new Country(countryDto.getName(), countryDto.getContinent());
+        return Optional.of(this.countryRepository.save(country));
+    }
+
+    @Override
+    public Optional<Country> editDto(Long id, CountryDto countryDto) throws Exception {
+        Country country = this.countryRepository.findById(id).orElseThrow(Exception::new);
+
+        country.setName(countryDto.getName());
+        country.setContinent(countryDto.getContinent());
+
+        return Optional.of(this.countryRepository.save(country));
     }
 
     @Override

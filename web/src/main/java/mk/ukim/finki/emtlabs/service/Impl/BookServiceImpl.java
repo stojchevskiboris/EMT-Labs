@@ -40,12 +40,19 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
+    public Optional<Book> mark(Long id) throws Exception {
+        Book book = this.bookRepository.findById(id).orElseThrow(Exception::new);
+        book.setAvailableCopies(book.getAvailableCopies()-1);
+        return Optional.of(this.bookRepository.save(book));
+    }
+
+    @Override
     @Transactional
-    public Book save(String name, Category category, Long authorId, Integer availableCopies) throws Exception {
+    public Book save(String name, Category category, Long author, Integer availableCopies) throws Exception {
         if(name==null || name.isEmpty())
             throw new Exception();
-        Author author = this.authorRepository.findById(authorId).orElseThrow(Exception::new);
-        Book book = new Book(name, category, author, availableCopies);
+        Author author1 = this.authorRepository.findById(author).orElseThrow(Exception::new);
+        Book book = new Book(name, category, author1, availableCopies);
         this.bookRepository.deleteByName(name);
         this.bookRepository.save(book);
         return book;
@@ -53,20 +60,20 @@ public class BookServiceImpl implements BookService {
 
     @Override
     @Transactional
-    public Optional<Book> edit(Long id, String name, Category category, Long authorId, Integer availableCopies) throws Exception {
+    public Optional<Book> edit(Long id, String name, Category category, Long author, Integer availableCopies) throws Exception {
         Book book = this.bookRepository.findById(id).orElseThrow(Exception::new);
         book.setName(name);
         book.setCategory(category);
 
-        Author author = this.authorRepository.findById(authorId).orElseThrow(Exception::new);
-        book.setAuthor(author);
+        Author author1 = this.authorRepository.findById(author).orElseThrow(Exception::new);
+        book.setAuthor(author1);
         book.setAvailableCopies(availableCopies);
         return Optional.of(this.bookRepository.save(book));
     }
 
     @Override
     public Optional<Book> saveDto(BookDto bookDto) throws Exception {
-        Author author = this.authorRepository.findById(bookDto.getAuthorId()).orElseThrow(Exception::new);
+        Author author = this.authorRepository.findById(bookDto.getAuthor()).orElseThrow(Exception::new);
         Book book = new Book(bookDto.getName(), bookDto.getCategory(), author, bookDto.getAvailableCopies());
         return Optional.of(this.bookRepository.save(book));
     }
@@ -74,7 +81,7 @@ public class BookServiceImpl implements BookService {
     @Override
     public Optional<Book> editDto(Long id, BookDto bookDto) throws Exception {
         Book book = this.bookRepository.findById(id).orElseThrow(Exception::new);
-        Author author = this.authorRepository.findById(bookDto.getAuthorId()).orElseThrow(Exception::new);
+        Author author = this.authorRepository.findById(bookDto.getAuthor()).orElseThrow(Exception::new);
 
         book.setName(bookDto.getName());
         book.setCategory(bookDto.getCategory());

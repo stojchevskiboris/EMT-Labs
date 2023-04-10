@@ -3,6 +3,7 @@ package mk.ukim.finki.emtlabs.service.Impl;
 import mk.ukim.finki.emtlabs.model.Author;
 import mk.ukim.finki.emtlabs.model.Book;
 import mk.ukim.finki.emtlabs.model.Country;
+import mk.ukim.finki.emtlabs.model.dto.AuthorDto;
 import mk.ukim.finki.emtlabs.repository.AuthorRepository;
 import mk.ukim.finki.emtlabs.repository.CountryRepository;
 import mk.ukim.finki.emtlabs.service.AuthorService;
@@ -57,6 +58,25 @@ public class AuthorServiceImpl implements AuthorService {
         author.setSurname(surname);
         Country country = this.countryRepository.findById(countryId).orElseThrow(Exception::new);
         author.setCountry(country);
+        return Optional.of(this.authorRepository.save(author));
+    }
+
+    @Override
+    public Optional<Author> saveDto(AuthorDto authorDto) throws Exception {
+        Country country = this.countryRepository.findById(authorDto.getCountryId()).orElseThrow(Exception::new);
+        Author author = new Author(authorDto.getName(), authorDto.getSurname(), country);
+        return Optional.of(this.authorRepository.save(author));
+    }
+
+    @Override
+    public Optional<Author> editDto(Long id, AuthorDto authorDto) throws Exception {
+        Author author = this.authorRepository.findById(id).orElseThrow(Exception::new);
+        Country country = this.countryRepository.findById(authorDto.getCountryId()).orElseThrow(Exception::new);
+
+        author.setName(authorDto.getName());
+        author.setSurname(authorDto.getSurname());
+        author.setCountry(country);
+
         return Optional.of(this.authorRepository.save(author));
     }
 

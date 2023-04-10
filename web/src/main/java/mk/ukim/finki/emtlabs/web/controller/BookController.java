@@ -37,6 +37,13 @@ public class BookController {
         return "master-template";
     }
 
+    @PostMapping("/mark/{id}")
+    public String markBook(@PathVariable Long id) throws Exception {
+        if (this.bookService.findById(id).get().getAvailableCopies()>0)
+            this.bookService.mark(id);
+        return "redirect:/books";
+    }
+
     @DeleteMapping("/delete/{id}")
     public String deleteBook(@PathVariable Long id) {
         this.bookService.deleteById(id);

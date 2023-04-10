@@ -46,14 +46,26 @@
                     <i class="fa fa-trash">Edit</i>
                   </a>
                 </th:block>
-                <form th:action="@{'/shopping-cart/add-book/{id}' (id=${book.getId()})}"
-                      th:method="POST"
-                      sec:authorize="isAuthenticated()">
-                  <button type="submit"
-                          class="btn btn-sm btn-primary cart-product">
-                    <i class="fa fa-trash">Add book to cart</i>
-                  </button>
-                </form>
+
+<!--                REMOVE Shopping Cart Functionality-->
+<!--                <form th:action="@{'/shopping-cart/add-book/{id}' (id=${book.getId()})}"-->
+<!--                      th:method="POST"-->
+<!--                      sec:authorize="isAuthenticated()">-->
+<!--                  <button type="submit"-->
+<!--                          class="btn btn-sm btn-primary cart-product">-->
+<!--                    <i class="fa fa-trash">Add book to cart</i>-->
+<!--                  </button>-->
+<!--                </form>-->
+
+                                <form th:action="@{'/books/mark/{id}' (id=${book.getId()})}"
+                                      th:method="POST"
+                                      sec:authorize="isAuthenticated()">
+                                  <button type="submit"
+                                          class="btn btn-sm btn-primary cart-product">
+                                    <i class="fa fa-trash">Mark book as taken</i>
+                                  </button>
+                                </form>
+
               </td>
             </tr>
             </tbody>
