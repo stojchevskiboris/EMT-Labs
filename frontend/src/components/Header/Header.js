@@ -16,7 +16,8 @@ function Header() {
                         <Link className="nav-link fw-bolder" to={"/categories"}>Categories</Link>
                         {/*<Link className="nav-link" href="/categories">Link</Link>*/}
                         <NavDropdown title="More" id="basic-nav-dropdown" className=" fw-bolder">
-                            <NavDropdown.Item href="https://github.com/stojchevskiboris/EMT-Labs">Github Repo</NavDropdown.Item>
+                            <NavDropdown.Item target="_blank" href="https://github.com/stojchevskiboris/EMT-LAB-Frontend">FrontEnd Repo</NavDropdown.Item>
+                            <NavDropdown.Item target="_blank" href="https://github.com/stojchevskiboris/EMT-LAB-Backend">BackEnd Repo</NavDropdown.Item>
                             {/*<NavDropdown.Item href="#action/3.2">*/}
                             {/*    Another action*/}
                             {/*</NavDropdown.Item>*/}

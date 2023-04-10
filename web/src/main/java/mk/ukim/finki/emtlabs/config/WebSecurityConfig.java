@@ -25,9 +25,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
+        http.headers().frameOptions().disable();
+
         http.csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/", "/home", "/assets/**", "/register","/login", "/api/**", "/books").permitAll()
+                .antMatchers("/","/h2/**", "/home", "/assets/**", "/register","/login", "/api/**", "/books").permitAll()
                 .antMatchers("/admin/**").hasRole("ADMIN")
                 .anyRequest()
                 .authenticated()
@@ -47,6 +49,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .exceptionHandling().accessDeniedPage("/access_denied");
 
     }
+
+
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) {
